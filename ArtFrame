@@ -6,15 +6,18 @@ public class PopulateArtFrames : MonoBehaviour {
 
 	void Start () {
 		int imageIndex = 0;
-		foreach (Transform artwork in transform) {
-			GameObject art = artwork.FindChild("Image").gameObject;
-			Renderer rend = art.GetComponent<Renderer>();
-			Shader shader = Shader.Find("Standard");
-			Material mat = new Material( shader );
-			mat.mainTexture = images[imageIndex];
-			rend.material = mat; // will clone the material 
-			imageIndex++;
+		foreach (Transform artwork in transform) { 
+                //foreach는 Artworkrig가 images 배열에서 순서대로 다른 이미지를 얻게함.
+			GameObject art = artwork.FindChild("Image").gameObject; 
+                //각 artwork에서 자식 image쿼드 오브젝트를 찾고, 이것에 지역변수 art를 할당
+			Renderer rend = art.GetComponent<Renderer>(); //rend에 할당된 Renderer 컴포넌트 얻음.
+			Shader shader = Shader.Find("Standard"); //Standard Shader를 사용하는 새로운 매터리얼 만듬.
+			Material mat = new Material( shader ); // 이름은 mat이라고함.
+			mat.mainTexture = images[imageIndex]; //images 배열에서 이미지 텍스처 받음.
+			rend.material = mat; 
+			imageIndex++; //imageIndex를 증가시켜서 ArtworkRig가 images배열에서 순서대로 다른 이미지를 얻게함.
 			if (imageIndex == images.Length) imageIndex = 0;
+                //이미지 수보다 더 많은 ArtworkRig가 존재하면 에러발생이 아니라 처음사진부터 시작.
 		}
 	}
 }
